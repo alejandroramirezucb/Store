@@ -1,4 +1,5 @@
 # Store
+![](IMAGES/StoreNET_logo.png)
 ## Features
 * Inventory: Product management, category management, and product stock.
 * Sales: Online sales management, where a customer can make purchases using a shopping cart, in console mode. After making a purchase, the user can view a summary of their purchase.
