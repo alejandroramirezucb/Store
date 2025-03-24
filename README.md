@@ -1,7 +1,7 @@
 # Store
-## Funcionalidades
-* Inventario: La gestión de productos, gestión de categorías y el stock de los productos
-* Ventas: Gestión de venta en linea, donde un cliente puede realizar compras con un carrito, en modo consola. El usuario luego de realizar una compra puede ver un resumen de su compra.
-* Usuarios: Gestión de clientes y usuarios del sistema, al ingresar un usuario puede ser cliente o administrador
-* Pagos y Facturación: Gestiona los pagos del cliente dando opciones de pago
-* Reportes: Gestión de reportes, por ejemplo: cuántos productos se han vendido en una determinada fecha, cuántos productos están sin stock, y otros relevantes
+## Features
+* Inventory: Product management, category management, and product stock.
+* Sales: Online sales management, where a customer can make purchases using a shopping cart, in console mode. After making a purchase, the user can view a summary of their purchase.
+* Users: Management of customers and system users. When logging in, a user can be a customer or administrator.
+* Payments and Billing: Manage customer payments, providing payment options.
+* Reports: Manage reports, for example: how many products have been sold on a given date, how many products are out of stock, and other relevant information.
