@@ -1,4 +1,4 @@
-# Store
+# Store.NET
 ![](StoreNET_logo.png)
 ## Features
 * Inventory: Product management, category management, and product stock.
