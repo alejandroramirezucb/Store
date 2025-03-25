@@ -45,22 +45,23 @@ public class users
         }
         return false;
     }
-    public void addUser(string userName, int userID, string userPassword, bool userAdmin)
+    public bool addUser(string userName, int userID, string userPassword, bool userAdmin)
     {
         user newUser = new user(userName, userID, userPassword, userAdmin);
         if (ifUserIDExists(userID))
         {
-            Console.WriteLine("Error: El ID del Usuario ya existe");
-            return;
+            Console.WriteLine("ERROR: El ID del Usuario ya existe");
+            return false;
         }
         else if (userFirst == null)
         {
             userFirst = newUser;
+            return true;
         }
         else
         {
             user auxUser = userFirst;
-            while (auxUser.getNextUser != null)
+            while (auxUser.getNextUser() != null)
             {
                 auxUser = auxUser.getNextUser();
             }
@@ -74,6 +75,7 @@ public class users
                 setCustomeUsersCount(getCustomeUsersCount() + 1);
             }
             setUsersCount(getUsersCount() + 1);
+            return true;
         }
     }
     public bool delUser(int userID)
@@ -90,7 +92,7 @@ public class users
         }
         else
         {
-            while (auxUser.getNextUser != null)
+            while (auxUser.getNextUser() != null)
             {
                 if (auxUser.getUserID() == userID)
                 {
@@ -102,12 +104,25 @@ public class users
             return false;
         }
     }
+    public user getUserByID(int userID)
+    {
+        user auxUser = userFirst;
+        while (auxUser != null)
+        {
+            if (auxUser.getUserID() == userID)
+            {
+                return auxUser;
+            }
+            auxUser = auxUser.getNextUser();
+        }
+        return null;
+    }
     public void printUserAdmin()
     {
         user auxUser = userFirst;
-        Console.WriteLine("---------------------------------------------------------------");
-        Console.WriteLine("| {0,-10} | {1,-30} |", "ID", "NOMBRE");
-        Console.WriteLine("---------------------------------------------------------------");
+        Console.WriteLine("-----------------------------------------------");
+        Console.WriteLine("| {0,-10} | {1,-30} |", "ID", "Nombre");
+        Console.WriteLine("-----------------------------------------------");
         while (auxUser != null)
         {
             if (auxUser.getUserAdmin() == true)
@@ -116,14 +131,14 @@ public class users
             }
             auxUser = auxUser.getNextUser();
         }
-        Console.WriteLine("---------------------------------------------------------------");
+        Console.WriteLine("-----------------------------------------------");
     }
     public void printUserCustomer()
     {
         user auxUser = userFirst;
-        Console.WriteLine("---------------------------------------------------------------");
-        Console.WriteLine("| {0,-10} | {1,-30} |", "ID", "NOMBRE");
-        Console.WriteLine("---------------------------------------------------------------");
+        Console.WriteLine("-----------------------------------------------");
+        Console.WriteLine("| {0,-10} | {1,-30} |", "ID", "Nombre");
+        Console.WriteLine("-----------------------------------------------");
         while (auxUser != null)
         {
             if (auxUser.getUserAdmin() == false)
@@ -132,6 +147,6 @@ public class users
             }
             auxUser = auxUser.getNextUser();
         }
-        Console.WriteLine("---------------------------------------------------------------");
+        Console.WriteLine("-----------------------------------------------");
     }
 }

@@ -1,50 +1,79 @@
 ﻿public class inventory
 {
-    private productType firstProductType;
-    private int productStock;
-    private int categoryStock;
+    private int stock;
+    private product firstProduct;
 
     public inventory()
     {
-        firstProductType = null;
-        productStock = 0;
-        categoryStock = 0;
+        this.firstProduct = null;
+        this.stock = 0;
     }
-    public int getProductStock()
+    public int getStock()
     {
-        return productStock;
+        return stock;
     }
-    public void setProductStock(int productStock)
+    public void setStock(int stock)
     {
-        this.productStock = productStock;
+        this.stock = stock;
     }
-    public int getCategoryStock()
+    public bool ifProductIDExists(int productID)
     {
-        return categoryStock;
-    }
-    public void setCategoryStock(int categoryStock)
-    {
-        this.categoryStock = categoryStock;
-    }
-    public productType getFirstProductType()
-    {
-        return firstProductType;
-    }
-    public void addProductType(productType newProductType)
-    {
-        if (firstProductType == null)
+        product auxProduct = firstProduct;
+        while (auxProduct != null)
         {
-            firstProductType = newProductType;
+            if (auxProduct.getProductID() == productID)
+            {
+                return true;
+            }
+            auxProduct = auxProduct.getNextProduct();
+        }
+        return false;
+    }
+    public bool addProduct(string productName, string productBrand, int productBarcode, int productID)
+    {
+        if (ifProductIDExists(productID))
+        {
+            Console.WriteLine("ERROR: El ID del Producto ya existe");
+            return false;
         }
         else
         {
-            productType current = firstProductType;
-            while (current.getNextProductType() != null)
+            product newProduct = new product(productName, productBrand, productBarcode, productID);
+            product auxProduct = firstProduct;
+            while (auxProduct.getNextProduct() != null)
             {
-                current = current.getNextProductType();
+                auxProduct = auxProduct.getNextProduct();
             }
-            current.setNextProductType(newProductType);
+            newProduct.setNextProduct(firstProduct);
+            setStock(getStock() + 1);
+            return true;
         }
-        ++categoryStock; 
+    }
+    public bool delProduct(int productID)
+    {
+        product auxProduct = firstProduct;
+        if (firstProduct == null)
+        {
+            Console.WriteLine("ERROR: El Producto no existe o el stock esta vacío");
+            return false;
+        }
+        else if (firstProduct.getProductID() == productID)
+        {
+            firstProduct = firstProduct.getNextProduct();
+            return true;
+        }
+        else
+        {
+            while (auxProduct.getNextProduct() != null)
+            {
+                if (auxProduct.getProductID() == productID)
+                {
+                    auxProduct.setNextProduct(auxProduct.getNextProduct().getNextProduct());
+                    return true;
+                }
+                auxProduct = auxProduct.getNextProduct();
+            }
+            return false;
+        }
     }
 }
