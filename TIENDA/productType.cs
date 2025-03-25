@@ -87,22 +87,6 @@
         }
         return false;
     }
-    public void printProduct()
-    {
-        product auxProduct = top;
-        if (top == null)
-        {
-            Console.WriteLine("Error: El Producto no Existe o el Stock esta vacio");
-        }
-        else
-        {
-            while (auxProduct != null)
-            {
-                Console.WriteLine();
-                auxProduct = auxProduct.getNextProduct();
-            }
-        }
-    }
     public void addProduct(int productID)
     {
         product newProduct = new product($"{this.productName.ToUpper().Replace(" ", "")}-{productID}");

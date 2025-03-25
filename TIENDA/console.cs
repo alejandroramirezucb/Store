@@ -1,11 +1,15 @@
 ﻿public class console
 {
     private int option;
+    private users listUsers;
+    private inventory listInventory;
 
     public console()
     {
-
+        this.listUsers = new users();
+        this.listInventory = new inventory();
     }
+
     public void login()
     {
         Console.Clear();
@@ -26,6 +30,7 @@
                 break;
         }
     }
+
     public void adminMenu()
     {
         Console.Clear();
@@ -58,16 +63,16 @@
                 break;
         }
     }
+
     public void inventoryManagement()
     {
         Console.Clear();
         Console.WriteLine("---------------------------------Gestion de Inventario----------------------------------\n");
         Console.WriteLine("1. Agregar Producto | 2. Eliminar Producto " +
-                          "| 3. Crear Categoria | 4. Eliminar Categoria\n" +
-                          "5. Asociar Producto con Categoria | 6. Aumentar Stock " +
-                          "| 7. Reducir Stock | 8. Regresar\n");
+                          "| 3. Aumentar Stock | 4. Reducir Stock | 5. Regresar\n");
         Console.Write("Opcion: ");
         option = int.Parse(Console.ReadLine());
+
         switch (option)
         {
             case 1:
@@ -75,29 +80,31 @@
                 string productName = Console.ReadLine();
                 Console.Write("Marca del Producto : ");
                 string productBrand = Console.ReadLine();
-                Console.Write("ID del Producto : ");
-                int productID = int.Parse(Console.ReadLine());
                 Console.Write("Codigo de Barras del Producto : ");
                 int productBarcode = int.Parse(Console.ReadLine());
-                productType auxProductType = new productType(productName, productBrand, productBarcode);
-                auxProductType.addProduct(productID);
-                break;
-            case 2:
-                //delProductType();
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
-            case 7:
-                break;
-            case 8:
+
+                productType newProductType = new productType(productName, productBrand, productBarcode);
+                listInventory.addProductType(newProductType);
+                Console.WriteLine("Producto agregado con exito.");
                 adminMenu();
                 break;
+
+            case 2:
+                
+                break;
+
+            case 3:
+                
+                break;
+
+            case 4:
+                
+                break;
+
+            case 5:
+                adminMenu();
+                break;
+
             default:
                 break;
         }
@@ -138,6 +145,16 @@
         switch (option)
         {
             case 1:
+                Console.WriteLine("Nombre: ");
+                string userName = Console.ReadLine();
+                Console.WriteLine("ID: ");
+                int userID = int.Parse(Console.ReadLine());
+                Console.WriteLine("Contraseña: ");
+                string userPassword = Console.ReadLine();
+                Console.WriteLine("¿El usuario es Admin? s/n: ");
+                string userAdminScanner = Console.ReadLine();
+                bool userAdmin = false;
+
                 break;
             case 2:
                 break;
@@ -153,16 +170,18 @@
     public void viewUsers()
     {
         Console.Clear();
-        Console.WriteLine("-------------------------Ver Usuarios-------------------------\n");
-        Console.WriteLine("1. Tabla de Administradores| 2. Tabla de Clientes " +
+        Console.WriteLine("--------------------------Ver Usuarios-------------------------\n");
+        Console.WriteLine("1. Tabla de Administradores | 2. Tabla de Clientes " +
                           "| 3 Regresar\n");
         Console.Write("Opcion: ");
         option = int.Parse(Console.ReadLine());
         switch (option)
         {
             case 1:
+                listUsers.printUserAdmin();
                 break;
             case 2:
+                listUsers.printUserCustomer();
                 break;
             case 3:
                 adminMenu();
@@ -172,3 +191,4 @@
         }
     }
 }
+
