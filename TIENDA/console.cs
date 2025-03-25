@@ -32,6 +32,7 @@ public class console
                         adminMenu();
                         break;
                     case 3:
+                        customerMenu();
                         exit = true;
                         break;
                     default:
@@ -97,16 +98,22 @@ public class console
             }
         }
     }
+    public void customerMenu()
+    {
 
+    }
     public void inventoryManagement()
     {
         bool back = false;
         while (!back)
         {
             Console.Clear();
-            Console.WriteLine("---------------------------------Gestion de Inventario---------------------------------\n");
+            Console.WriteLine("--------------------------------------Gestion de Inventario-------------------------------------\n");
             Console.WriteLine("1. Agregar Producto | 2. Eliminar Producto " +
-                              "| 3. Asociar Producto y Categoria | 4. Regresar\n");
+                              "| 3. Asociar Producto y Categoria" +
+                              "| 4. Crear Categoria\n" +
+                              "                                 5. Eliminar Categoria " +
+                              "| 6. Regresar\n");
             Console.Write("Opcion: ");
             if (int.TryParse(Console.ReadLine(), out option))
             {
@@ -162,7 +169,7 @@ public class console
                     case 3:
                         Console.Write("Nombre del Producto: ");
                         productName = Console.ReadLine();
-                        Console.Write("Nueva Categoria: ");
+                        Console.Write("Nombre de la Categoria: ");
                         string productCategory = Console.ReadLine();
                         if (listInventory.linkProduct_Category(productName, productCategory) == true)
                         {
@@ -171,6 +178,24 @@ public class console
                         Console.ReadKey();
                         break;
                     case 4:
+                        Console.Write("Ingrese el nombre de la Categoria: ");
+                        string newCategory = Console.ReadLine();
+                        if (listInventory.addCategory(newCategory))
+                        {
+                            Console.WriteLine("EXITO: Categoria agregada");
+                        }
+                        Console.ReadKey();
+                        break;
+                    case 5:
+                        Console.Write("Ingrese el nombre de la Categoria a eliminar: ");
+                        string delCategory = Console.ReadLine();
+                        if (listInventory.delCategory(delCategory))
+                        {
+                            Console.WriteLine("EXITO: Categoria eliminada");
+                        }
+                        Console.ReadKey();
+                        break;
+                    case 6:
                         back = true;
                         break;
                     default:
@@ -206,11 +231,13 @@ public class console
                         Console.ReadKey();
                         break;
                     case 2:
-                        Console.WriteLine("Funcionalidad de Tabla de Categorias no implementada.");
+                        listInventory.printCategories();
                         Console.ReadKey();
                         break;
                     case 3:
-                        Console.WriteLine("Funcionalidad de productos por Categoria no implementada.");
+                        Console.Write("Ingrese el nombre de la Categoria: ");
+                        string catName = Console.ReadLine();
+                        listInventory.printProductsInCategories(catName);
                         Console.ReadKey();
                         break;
                     case 4:
@@ -332,7 +359,6 @@ public class console
             }
         }
     }
-
     public void viewUsers()
     {
         bool regresar = false;
