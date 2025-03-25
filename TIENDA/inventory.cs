@@ -5,8 +5,8 @@
 
     public inventory()
     {
-        this.firstProduct = null;
         this.stock = 0;
+        this.firstProduct = null;
     }
     public int getStock()
     {
@@ -15,6 +15,50 @@
     public void setStock(int stock)
     {
         this.stock = stock;
+    }
+    public int getStockProduct(string productName)
+    {
+        int stockProduct = 0;
+        if (firstProduct == null)
+        {
+            Console.WriteLine("ERROR: El Producto no existe o el stock esta vacío");
+            return 0;
+        }
+        else
+        {
+            product auxProduct = firstProduct;
+            while (auxProduct != null)
+            {
+                if (auxProduct.getProductName() == productName)
+                {
+                    ++stockProduct;
+                }
+                auxProduct = auxProduct.getNextProduct();
+            }
+            return stockProduct;
+        }
+    }
+    public int getStockCategory(string productCategory)
+    {
+        int stockCategory = 0;
+        if (firstProduct == null)
+        {
+            Console.WriteLine("ERROR: El Producto no existe o el stock esta vacío");
+            return 0;
+        }
+        else
+        {
+            product auxProduct = firstProduct;
+            while (auxProduct != null)
+            {
+                if (auxProduct.getProductCategory() == productCategory)
+                {
+                    ++stockCategory;
+                }
+                auxProduct = auxProduct.getNextProduct();
+            }
+            return stockCategory;
+        }
     }
     public bool ifProductIDExists(int productID)
     {
@@ -29,22 +73,66 @@
         }
         return false;
     }
+    public bool ifProductBarcodeExists(int productBarcode, string productName)
+    {
+        product auxProduct = firstProduct;
+        while (auxProduct != null)
+        {
+            if (auxProduct.getProductBarcode() == productBarcode && auxProduct.getProductName() != productName)
+            {
+                return true;
+            }
+            auxProduct = auxProduct.getNextProduct();
+        }
+        return false;
+    }
+    public bool linkProduct_Category(string productName, string productCategory)
+    {
+        if (firstProduct == null)
+        {
+            Console.WriteLine("ERROR: El Producto no existe o el stock esta vacío");
+            return false;
+        }
+        else
+        {
+            product auxProduct = firstProduct;
+            while (auxProduct != null)
+            {
+                if (auxProduct.getProductName() == productName)
+                {
+                    auxProduct.setProductCategory(productCategory);
+                }
+                auxProduct = auxProduct.getNextProduct();
+            }
+            return true;
+        }
+    }
     public bool addProduct(string productName, string productBrand, int productBarcode, int productID)
     {
+        product newProduct = new product(productName, productBrand, productBarcode, productID);
         if (ifProductIDExists(productID))
         {
             Console.WriteLine("ERROR: El ID del Producto ya existe");
             return false;
         }
+        if (ifProductBarcodeExists(productBarcode, productName))
+        {
+            Console.WriteLine("ERROR: El codigo de barras le pertenece a otro producto");
+            return false;
+        }
+        else if (firstProduct == null)
+        {
+            firstProduct = newProduct;
+            return true;
+        }
         else
         {
-            product newProduct = new product(productName, productBrand, productBarcode, productID);
             product auxProduct = firstProduct;
             while (auxProduct.getNextProduct() != null)
             {
                 auxProduct = auxProduct.getNextProduct();
             }
-            newProduct.setNextProduct(firstProduct);
+            auxProduct.setNextProduct(newProduct);
             setStock(getStock() + 1);
             return true;
         }
@@ -54,12 +142,12 @@
         product auxProduct = firstProduct;
         if (firstProduct == null)
         {
-            Console.WriteLine("ERROR: El Producto no existe o el stock esta vacío");
             return false;
         }
         else if (firstProduct.getProductID() == productID)
         {
             firstProduct = firstProduct.getNextProduct();
+            setStock(getStock() - 1);
             return true;
         }
         else
@@ -69,6 +157,7 @@
                 if (auxProduct.getProductID() == productID)
                 {
                     auxProduct.setNextProduct(auxProduct.getNextProduct().getNextProduct());
+                    setStock(getStock() - 1);
                     return true;
                 }
                 auxProduct = auxProduct.getNextProduct();
@@ -76,4 +165,26 @@
             return false;
         }
     }
+    public void printProducts()
+    {
+        product auxProduct = firstProduct;
+        Console.WriteLine("--------------------------------------------------------------------------------------------");
+        Console.WriteLine("| {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-10} |",
+                          "ID", "Nombre", "Marca", "Categoria", "Codigo de Barras");
+        Console.WriteLine("--------------------------------------------------------------------------------------------");
+        while (auxProduct != null)
+        {
+            if (auxProduct.getSold() == false) {
+                Console.WriteLine("| {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-10} |",
+                                  auxProduct.getProductID(),
+                                  auxProduct.getProductName(),
+                                  auxProduct.getProductBrand(),
+                                  auxProduct.getProductCategory(),
+                                  auxProduct.getProductBarcode());
+            }
+            auxProduct = auxProduct.getNextProduct();
+        }
+        Console.WriteLine("--------------------------------------------------------------------------------------------");
+    }
+
 }

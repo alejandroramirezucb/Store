@@ -47,7 +47,6 @@ public class console
             }
         }
     }
-
     public void adminMenu()
     {
         bool regresar = false;
@@ -101,50 +100,78 @@ public class console
 
     public void inventoryManagement()
     {
-        bool regresar = false;
-        while (!regresar)
+        bool back = false;
+        while (!back)
         {
             Console.Clear();
-            Console.WriteLine("---------------------------------Gestion de Inventario----------------------------------\n");
+            Console.WriteLine("---------------------------------Gestion de Inventario---------------------------------\n");
             Console.WriteLine("1. Agregar Producto | 2. Eliminar Producto " +
-                              "| 3. Aumentar Stock | 4. Reducir Stock | 5. Regresar\n");
+                              "| 3. Asociar Producto y Categoria | 4. Regresar\n");
             Console.Write("Opcion: ");
             if (int.TryParse(Console.ReadLine(), out option))
             {
                 switch (option)
                 {
                     case 1:
-                        Console.Write("Nombre del Producto : ");
+                        Console.Write("Nombre del Producto: ");
                         string productName = Console.ReadLine();
-                        Console.Write("Marca del Producto : ");
+                        Console.Write("Marca del Producto: ");
                         string productBrand = Console.ReadLine();
-                        Console.Write("Codigo de Barras del Producto : ");
+                        Console.Write("Codigo de Barras: ");
                         int productBarcode;
                         if (!int.TryParse(Console.ReadLine(), out productBarcode))
                         {
-                            Console.WriteLine("Codigo de Barras inválido.");
+                            Console.WriteLine("ERROR: Codigo de Barras invalido");
                             Console.ReadKey();
                             break;
                         }
-                        productType newProductType = new productType(productName, productBrand, productBarcode);
-                        listInventory.addProductType(newProductType);
-                        Console.WriteLine("Producto agregado con éxito.");
+                        Console.Write("ID del Producto: ");
+                        int productID;
+                        if (!int.TryParse(Console.ReadLine(), out productID))
+                        {
+                            Console.WriteLine("ERROR: ID del Producto invalido");
+                            Console.ReadKey();
+                            break;
+                        }
+                        if (listInventory.addProduct(productName, productBrand, productBarcode, productID))
+                        {
+                            Console.WriteLine("EXITO: Producto agregado");
+                        }
                         Console.ReadKey();
                         break;
                     case 2:
-                        Console.WriteLine("Funcionalidad de eliminación de producto no implementada.");
+                        Console.Write("Ingrese el ID del producto a eliminar: ");
+                        int productIDDel;
+                        if (int.TryParse(Console.ReadLine(), out productIDDel))
+                        {
+                            if (listInventory.delProduct(productIDDel) == true)
+                            {
+                                Console.WriteLine("EXITO: Producto eliminado");
+                            }
+                            else
+                            {
+                                Console.WriteLine("ERROR: Producto no encontrado");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("ERROR: Entrada invalida");
+                        }
                         Console.ReadKey();
                         break;
                     case 3:
-                        Console.WriteLine("Funcionalidad de aumento de stock no implementada.");
+                        Console.Write("Nombre del Producto: ");
+                        productName = Console.ReadLine();
+                        Console.Write("Nueva Categoria: ");
+                        string productCategory = Console.ReadLine();
+                        if (listInventory.linkProduct_Category(productName, productCategory) == true)
+                        {
+                            Console.WriteLine($"EXITO: La Categoria de {productName} fue actualizada");
+                        }
                         Console.ReadKey();
                         break;
                     case 4:
-                        Console.WriteLine("Funcionalidad de reducción de stock no implementada.");
-                        Console.ReadKey();
-                        break;
-                    case 5:
-                        regresar = true;
+                        back = true;
                         break;
                     default:
                         Console.WriteLine("ERROR: Opcion no valida");
@@ -159,7 +186,6 @@ public class console
             }
         }
     }
-
     public void viewInventory()
     {
         bool regresar = false;
@@ -176,7 +202,7 @@ public class console
                 switch (option)
                 {
                     case 1:
-                        Console.WriteLine("Funcionalidad de Tabla de Productos no implementada.");
+                        listInventory.printProducts();
                         Console.ReadKey();
                         break;
                     case 2:
@@ -210,7 +236,7 @@ public class console
         while (!back)
         {
             Console.Clear();
-            Console.WriteLine("---------------------------------Gestion de Usuarios--------------------------------\n");
+            Console.WriteLine("------------------------------------Gestion de Usuarios----------------------------------\n");
             Console.WriteLine("1. Agregar Usuario | 2. Eliminar Usuario " +
                               "| 3. Cambiar Rango de Usuario " +
                               "| 4. Regresar\n");
@@ -246,7 +272,7 @@ public class console
                         int userIDDel;
                         if (int.TryParse(Console.ReadLine(), out userIDDel))
                         {
-                            if (listUsers.delUser(userIDDel))
+                            if (listUsers.delUser(userIDDel) == true)
                             {
                                 Console.WriteLine("EXITO: Usuario eliminado");
                             }
