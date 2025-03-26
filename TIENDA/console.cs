@@ -100,7 +100,53 @@ public class console
     }
     public void customerMenu()
     {
-
+        bool regresar = false;
+        while (!regresar)
+        {
+            Console.Clear();
+            Console.WriteLine("--------------------------------------------------------Menu-------------------------------------------------------\n");
+            Console.WriteLine("1. Agregar Producto a Carrito " +
+                              "| 2. Eliminar Producto del Carrito " +
+                              "| 3. Ver Carrito " +
+                              "| 4. Ver Productos" +
+                              "| 5. Comprar " +
+                              "| 6. Regresar\n");
+            Console.Write("Opcion: ");
+            if (int.TryParse(Console.ReadLine(), out option))
+            {
+                switch (option)
+                {
+                    case 1:
+                        
+                        break;
+                    case 2:
+                        
+                        break;
+                    case 3:
+                        
+                        break;
+                    case 4:
+                        
+                        break;
+                    case 5:
+                        Console.WriteLine("Funcionalidad de Reportes no implementada.");
+                        Console.ReadKey();
+                        break;
+                    case 6:
+                        regresar = true;
+                        break;
+                    default:
+                        Console.WriteLine("ERROR: Opcion no valida");
+                        Console.ReadKey();
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("ERROR: Entrada invalida");
+                Console.ReadKey();
+            }
+        }
     }
     public void inventoryManagement()
     {
@@ -112,7 +158,7 @@ public class console
             Console.WriteLine("1. Agregar Producto | 2. Eliminar Producto " +
                               "| 3. Asociar Producto y Categoria" +
                               "| 4. Crear Categoria\n" +
-                              "                                 5. Eliminar Categoria " +
+                              "                               5. Eliminar Categoria " +
                               "| 6. Regresar\n");
             Console.Write("Opcion: ");
             if (int.TryParse(Console.ReadLine(), out option))
@@ -171,7 +217,7 @@ public class console
                         productName = Console.ReadLine();
                         Console.Write("Nombre de la Categoria: ");
                         string productCategory = Console.ReadLine();
-                        if (listInventory.linkProduct_Category(productName, productCategory) == true)
+                        if (listInventory.linkProductAndCategory(productName, productCategory) == true)
                         {
                             Console.WriteLine($"EXITO: La Categoria de {productName} fue actualizada");
                         }
@@ -219,7 +265,7 @@ public class console
             Console.Clear();
             Console.WriteLine("--------------------------------------------Ver Inventario-------------------------------------------\n");
             Console.WriteLine("1. Tabla de Productos | 2. Tabla de Categorias " +
-                              "| 3. Tabla de productos de una Categoria " +
+                              "| 3. Tabla de Productos por Categoria " +
                               "| 4. Regresar\n");
             Console.Write("Opcion: ");
             if (int.TryParse(Console.ReadLine(), out option))
@@ -227,7 +273,7 @@ public class console
                 switch (option)
                 {
                     case 1:
-                        listInventory.printProducts();
+                        listInventory.printProductsByName();
                         Console.ReadKey();
                         break;
                     case 2:
@@ -236,8 +282,8 @@ public class console
                         break;
                     case 3:
                         Console.Write("Ingrese el nombre de la Categoria: ");
-                        string catName = Console.ReadLine();
-                        listInventory.printProductsInCategories(catName);
+                        string categoryName = Console.ReadLine();
+                        listInventory.printProductsbyCategories(categoryName);
                         Console.ReadKey();
                         break;
                     case 4:

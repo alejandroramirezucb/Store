@@ -5,12 +5,14 @@ public class inventory
     private int stock;
     private product firstProduct;
     private List<string> listCategories;
+    private List<string> listProducts;
 
     public inventory()
     {
         this.stock = 0;
         this.firstProduct = null;
         this.listCategories = new List<string>();
+        this.listProducts = new List<string>();
         listCategories.Add("Sin categoria");
     }
     public int getStock()
@@ -65,6 +67,27 @@ public class inventory
             return stockCategory;
         }
     }
+    public string getProductIDs(string productName)
+    {
+        string productIDs = "";
+        if (firstProduct == null)
+        {
+            return "ERROR: No se encontraron IDs de productos con ese nombre";
+        }
+        else
+        {
+            product auxProduct = firstProduct;
+            while (auxProduct != null)
+            {
+                if (auxProduct.getProductName() == productName)
+                {
+                    productIDs = productIDs + $"{auxProduct.getProductID()}, ";
+                }
+                auxProduct = auxProduct.getNextProduct();
+            }
+            return productIDs;
+        }
+    }
     public bool ifProductIDExists(int productID)
     {
         product auxProduct = firstProduct;
@@ -91,7 +114,18 @@ public class inventory
         }
         return false;
     }
-    public bool linkProduct_Category(string productName, string productCategory)
+    public bool ifCategoryExits(string categoryName)
+    {
+        for (int i = 0; i < listCategories.Count; ++i)
+        {
+            if (listCategories[i] == categoryName)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public bool linkProductAndCategory(string productName, string productCategory)
     {
         if (firstProduct == null)
         {
@@ -175,17 +209,6 @@ public class inventory
             return false;
         }
     }
-    public bool ifCategoryExits(string categoryName)
-    {
-        for (int i = 0; i<listCategories.Count; ++i)
-        {
-            if (listCategories[i] == categoryName)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
     public bool addCategory (string categoryName)
     {
         if (ifCategoryExits(categoryName) == true)
@@ -216,7 +239,7 @@ public class inventory
                 {
                     if (auxProduct.getProductCategory() == categoryName)
                     {
-                        linkProduct_Category(auxProduct.getProductName(), "Sin categoria");
+                        linkProductAndCategory(auxProduct.getProductName(), "Sin categoria");
                     }
                     auxProduct = auxProduct.getNextProduct();
                 }
@@ -230,58 +253,66 @@ public class inventory
         }
 
     }
-    public void printProducts()
+    public void printProductsByName()
     {
         product auxProduct = firstProduct;
-        Console.WriteLine("--------------------------------------------------------------------------------------------");
-        Console.WriteLine("| {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-10} |",
-                          "ID", "Nombre", "Marca", "Categoria", "Codigo de Barras");
-        Console.WriteLine("--------------------------------------------------------------------------------------------");
-        while (auxProduct != null)
+        Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
+        Console.WriteLine("| {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-20} | {5, -10} |",
+                          "IDs", "Nombre", "Marca", "Categoria", "Codigo de Barras", "Stock");
+        Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
+        for (int i = 0; i<listProducts.Count; ++i)
         {
-            if (auxProduct.getSold() == false) {
-                Console.WriteLine("| {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-10} |",
-                                  auxProduct.getProductID(),
-                                  auxProduct.getProductName(),
-                                  auxProduct.getProductBrand(),
-                                  auxProduct.getProductCategory(),
-                                  auxProduct.getProductBarcode());
+            while (auxProduct != null)
+            {
+                if (auxProduct.getSold() == false)
+                {
+                    Console.WriteLine("| {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-20} | {5, -10} |",
+                                      getProductIDs(auxProduct.getProductName()),
+                                      auxProduct.getProductName(),
+                                      auxProduct.getProductBrand(),
+                                      auxProduct.getProductCategory(),
+                                      auxProduct.getProductBarcode(),
+                                      getStockProduct(auxProduct.getProductName()));
+                }
+                auxProduct = auxProduct.getNextProduct();
             }
-            auxProduct = auxProduct.getNextProduct();
+            Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
         }
-        Console.WriteLine("--------------------------------------------------------------------------------------------");
     }
     public void printCategories()
     {
         Console.WriteLine("-----------------------------------------------");
-        Console.WriteLine("| {0,-10} | {1,-30} |", "Stock", "Nombre");
+        Console.WriteLine("| {0,-10} | {1,-30} |", "Nombre", "Stock");
         Console.WriteLine("-----------------------------------------------");
         for (int i = 0; i < listCategories.Count; ++i)
         {
-            Console.WriteLine("| {0,-10} | {1,-30} |", getStockCategory(listCategories[i]), listCategories[i]);
+            Console.WriteLine("| {0,-10} | {1,-30} |", 
+                              listCategories[i], getStockCategory(listCategories[i]));
         }
         Console.WriteLine("-----------------------------------------------");
     }
-    public void printProductsInCategories(string categoryName)
+    public void printProductsbyCategories(string categoryName)
     {
         product auxProduct = firstProduct;
-        Console.WriteLine("--------------------------------------------------------------------------------------------");
-        Console.WriteLine("| {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-10} |",
-                          "ID", "Nombre", "Marca", "Categoria", "Codigo de Barras");
-        Console.WriteLine("--------------------------------------------------------------------------------------------");
+        Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
+        Console.WriteLine("| {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-20} | {5, -10} |",
+                          "IDs", "Nombre", "Marca", "Categoria", "Codigo de Barras", "Stock");
+        Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
+
         while (auxProduct != null)
         {
-            if (auxProduct.getSold() == false && auxProduct.getProductCategory() == categoryName)
+            if (auxProduct.getSold() == false)
             {
-                Console.WriteLine("| {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-10} |",
-                                  auxProduct.getProductID(),
+                Console.WriteLine("| {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-20} | {5, -10} |",
+                                  getProductIDs(auxProduct.getProductName()),
                                   auxProduct.getProductName(),
                                   auxProduct.getProductBrand(),
                                   auxProduct.getProductCategory(),
-                                  auxProduct.getProductBarcode());
+                                  auxProduct.getProductBarcode(),
+                                  getStockProduct(auxProduct.getProductName()));
             }
             auxProduct = auxProduct.getNextProduct();
         }
-        Console.WriteLine("--------------------------------------------------------------------------------------------");
+        Console.WriteLine("----------------------------------------------------------------------------------------------------------");
     }
 }
