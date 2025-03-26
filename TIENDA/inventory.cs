@@ -44,7 +44,7 @@ public class inventory
             product auxProduct = firstProduct;
             while (auxProduct != null)
             {
-                if (auxProduct.getProductName() == productName)
+                if (auxProduct.getProductName() == productName && auxProduct.getSold() == false && auxProduct.getInCart() == false)
                 {
                     ++stockProduct;
                 }
@@ -66,7 +66,7 @@ public class inventory
             product auxProduct = firstProduct;
             while (auxProduct != null)
             {
-                if (auxProduct.getProductCategory() == productCategory)
+                if (auxProduct.getProductCategory() == productCategory && auxProduct.getSold() == false && auxProduct.getInCart() == false)
                 {
                     ++stockCategory;
                 }

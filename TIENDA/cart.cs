@@ -28,12 +28,18 @@ public class cart
     {
         this.stockCart = stockCart;
     }
-    /*public void returnMyCart()
+    public void forgottenCart()
     {
         product auxProduct = listInventory.getFirstProduct();
         if (auxProduct != null)
         {
             Console.WriteLine("ERROR: No hay productos disponibles en el inventario");
+            return;
+        }
+        if (productsInCart.Count == 0)
+        {
+            Console.WriteLine("ERROR: No hay productos en el carrito");
+            return;
         }
         else
         {
@@ -44,13 +50,47 @@ public class cart
                 {
                     if (productsInCart[i] == auxProduct.getProductID() && auxProduct.getInCart() == true)
                     {
-                       
+                        auxProduct.setInCart(false);
+                        auxProduct.setSold(false);
+                        productsInCart.Remove(productsInCart[i]);
                     }
                     auxProduct = auxProduct.getNextProduct();
                 }
             }
         }
-    }*/
+    }
+    public void cartSold()
+    {
+        product auxProduct = listInventory.getFirstProduct();
+        if (auxProduct != null)
+        {
+            Console.WriteLine("ERROR: No hay productos disponibles en el inventario");
+            return;
+        }
+        if (productsInCart.Count == 0)
+        {
+            Console.WriteLine("ERROR: No hay productos en el carrito");
+            return;
+        }
+        else
+        {
+            for (int i = 0; i < productsInCart.Count; ++i)
+            {
+                auxProduct = listInventory.getFirstProduct();
+                while (auxProduct != null)
+                {
+                    if (productsInCart[i] == auxProduct.getProductID() && auxProduct.getInCart() == true)
+                    {
+                        auxProduct.setInCart(false);
+                        auxProduct.setSold(true);
+                        listInventory.setStock(listInventory.getStock() - getStockCart());
+                        productsInCart.Remove(productsInCart[i]);
+                    }
+                    auxProduct = auxProduct.getNextProduct();
+                }
+            }
+        }
+    }
     public bool ifProductExitsInCart(int productID)
     {
         for (int i = 0; i < productsInCart.Count; ++i)
@@ -86,6 +126,7 @@ public class cart
                     setStockCart(getStockCart() + 1);
                     return true;
                 }
+                auxProduct = auxProduct.getNextProduct();
 
             }
             Console.WriteLine($"ERROR: El producto con el ID \"{productID}\" no existe");
@@ -126,10 +167,10 @@ public class cart
     }
     public void printProductsbyCart()
     {
-        Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
-        Console.WriteLine(" {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-20} | {5, -10} ",
-                          "ID", "Nombre", "Marca", "Categoria", "Codigo de Barras", "Stock");
-        Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
+        Console.WriteLine("-------------------------------------------------------------------------------------------------");
+        Console.WriteLine(" {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-20} ",
+                          "ID", "Nombre", "Marca", "Categoria", "Codigo de Barras");
+        Console.WriteLine("-------------------------------------------------------------------------------------------------");
         for (int i = 0; i < productsInCart.Count; ++i)
         {
             product auxProduct = listInventory.getFirstProduct();
@@ -137,18 +178,17 @@ public class cart
             {
                 if (productsInCart[i] == auxProduct.getProductID() && auxProduct.getSold() == false && auxProduct.getInCart() == true)
                 {
-                    Console.WriteLine(" {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-20} | {5, -10} ",
-                                      listInventory.getProductIDs(auxProduct.getProductName()),
+                    Console.WriteLine(" {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-20} ",
+                                      auxProduct.getProductID(),
                                       auxProduct.getProductName(),
                                       auxProduct.getProductBrand(),
                                       auxProduct.getProductCategory(),
-                                      auxProduct.getProductBarcode(),
-                                      listInventory.getStockProduct(auxProduct.getProductName()));
+                                      auxProduct.getProductBarcode());
                     break;
                 }
                 auxProduct = auxProduct.getNextProduct();
             }
         }
-        Console.WriteLine("----------------------------------------------------------------------------------------------------------");
+        Console.WriteLine("-------------------------------------------------------------------------------------------------");
     }
 }

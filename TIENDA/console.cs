@@ -4,6 +4,8 @@ using System.Reflection;
 public class console
 {
     private int option;
+    private int userActualID;
+    private string userActualName;
     private users listUsers;
     private inventory listInventory;
     private cart cart;
@@ -18,9 +20,11 @@ public class console
     public void login()
     {
         bool exit = false;
+        cart.forgottenCart();
         while (!exit)
         {
             Console.Clear();
+            cart.forgottenCart();
             Console.WriteLine("----------------------------------------------------Bienvenido--------------------------------------------------\n");
             Console.WriteLine("1. Iniciar Sesión como Administrador" +
                               " | 2. Iniciar Sesión como Cliente" +
@@ -45,6 +49,8 @@ public class console
                         user adminUser = listUsers.getUserByID(adminID);
                         if (adminUser != null && adminUser.getUserAdmin() == true && adminUser.getUserPassword() == adminPass)
                         {
+                            userActualID = adminID;
+                            userActualName = adminUser.getUserName();
                             adminMenu();
                         }
                         else
@@ -67,6 +73,8 @@ public class console
                         user clientUser = listUsers.getUserByID(clientID);
                         if (clientUser != null && clientUser.getUserPassword() == clientPass)
                         {
+                            userActualID = clientID;
+                            userActualName = clientUser.getUserName();
                             customerMenu();
                         }
                         else
@@ -113,8 +121,8 @@ public class console
 
     public void adminMenu()
     {
-        bool regresar = false;
-        while (!regresar)
+        bool back = false;
+        while (!back)
         {
             Console.Clear();
             Console.WriteLine("--------------------------------------------------------Menu-------------------------------------------------------\n");
@@ -142,11 +150,11 @@ public class console
                         viewUsers();
                         break;
                     case 5:
-                        Console.WriteLine("Funcionalidad de Reportes no implementada.");
+                        Console.WriteLine("ERROR: Funcionalidad de Reportes no implementada");
                         Console.ReadKey();
                         break;
                     case 6:
-                        regresar = true;
+                        back = true;
                         break;
                     default:
                         Console.WriteLine("ERROR: Opcion no valida");
@@ -210,13 +218,17 @@ public class console
                         Console.ReadKey();
                         break;
                     case 3:
+                        sale newSale = new sale(userActualID, userActualName, cart);
                         if (cart.getStockCart() == 0)
                         {
-                            Console.WriteLine("ERROR: El carrito está vacío");
+                            Console.WriteLine("ERROR: El carrito esta vacío");
                         }
                         else
-                        { 
-                            Console.WriteLine("EXITO: Compra realizada");
+                        {
+                            if (newSale.buy() == true)
+                            {
+                                Console.WriteLine("EXITO: Compra realizada");
+                            }
                         }
                         Console.ReadKey();
                         break;
