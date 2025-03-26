@@ -1,0 +1,14 @@
+C:\Users\USUARIO\Documents\3_SEMESTRE\PROGRAMACION 2\TIENDA_\TIENDA_\obj\Debug\net8.0\TIENDA_.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USUARIO\Documents\3_SEMESTRE\PROGRAMACION 2\TIENDA_\TIENDA_\obj\Debug\net8.0\TIENDA_.AssemblyInfoInputs.cache
+C:\Users\USUARIO\Documents\3_SEMESTRE\PROGRAMACION 2\TIENDA_\TIENDA_\obj\Debug\net8.0\TIENDA_.AssemblyInfo.cs
+C:\Users\USUARIO\Documents\3_SEMESTRE\PROGRAMACION 2\TIENDA_\TIENDA_\obj\Debug\net8.0\TIENDA_.csproj.CoreCompileInputs.cache
+C:\Users\USUARIO\Documents\3_SEMESTRE\PROGRAMACION 2\TIENDA_\TIENDA_\bin\Debug\net8.0\TIENDA_.exe
+C:\Users\USUARIO\Documents\3_SEMESTRE\PROGRAMACION 2\TIENDA_\TIENDA_\bin\Debug\net8.0\TIENDA_.deps.json
+C:\Users\USUARIO\Documents\3_SEMESTRE\PROGRAMACION 2\TIENDA_\TIENDA_\bin\Debug\net8.0\TIENDA_.runtimeconfig.json
+C:\Users\USUARIO\Documents\3_SEMESTRE\PROGRAMACION 2\TIENDA_\TIENDA_\bin\Debug\net8.0\TIENDA_.dll
+C:\Users\USUARIO\Documents\3_SEMESTRE\PROGRAMACION 2\TIENDA_\TIENDA_\bin\Debug\net8.0\TIENDA_.pdb
+C:\Users\USUARIO\Documents\3_SEMESTRE\PROGRAMACION 2\TIENDA_\TIENDA_\obj\Debug\net8.0\TIENDA_.dll
+C:\Users\USUARIO\Documents\3_SEMESTRE\PROGRAMACION 2\TIENDA_\TIENDA_\obj\Debug\net8.0\refint\TIENDA_.dll
+C:\Users\USUARIO\Documents\3_SEMESTRE\PROGRAMACION 2\TIENDA_\TIENDA_\obj\Debug\net8.0\TIENDA_.pdb
+C:\Users\USUARIO\Documents\3_SEMESTRE\PROGRAMACION 2\TIENDA_\TIENDA_\obj\Debug\net8.0\TIENDA_.genruntimeconfig.cache
+C:\Users\USUARIO\Documents\3_SEMESTRE\PROGRAMACION 2\TIENDA_\TIENDA_\obj\Debug\net8.0\ref\TIENDA_.dll
