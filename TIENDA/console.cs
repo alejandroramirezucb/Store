@@ -11,32 +11,90 @@ public class console
     public console()
     {
         this.listUsers = new users();
+        listUsers.addUser("Alejandro", 1, "1234", true);
         this.listInventory = new inventory();
         this.cart = new cart(listInventory);
     }
-
     public void login()
     {
         bool exit = false;
         while (!exit)
         {
             Console.Clear();
-            Console.WriteLine("-----------------------------------Bienvenido-----------------------------------\n");
-            Console.WriteLine("1. Iniciar Sesion como Administrador " +
-                              "| 2. Iniciar Sesion como Cliente " +
-                              "| 3. Salir\n");
-            Console.Write("Opcion: ");
+            Console.WriteLine("----------------------------------------------------Bienvenido--------------------------------------------------\n");
+            Console.WriteLine("1. Iniciar Sesión como Administrador" +
+                              " | 2. Iniciar Sesión como Cliente" +
+                              " | 3. Crear cuenta como Cliente" +
+                              " | 4. Salir\n");
+            Console.Write("Opción: ");
             if (int.TryParse(Console.ReadLine(), out option))
             {
                 switch (option)
                 {
                     case 1:
-                        adminMenu();
+                        Console.Write("Ingrese su ID: ");
+                        int adminID;
+                        if (!int.TryParse(Console.ReadLine(), out adminID))
+                        {
+                            Console.WriteLine("ERROR: Entrada invalida");
+                            Console.ReadKey();
+                            break;
+                        }
+                        Console.Write("Ingrese su Contraseña: ");
+                        string adminPass = Console.ReadLine();
+                        user adminUser = listUsers.getUserByID(adminID);
+                        if (adminUser != null && adminUser.getUserAdmin() == true && adminUser.getUserPassword() == adminPass)
+                        {
+                            adminMenu();
+                        }
+                        else
+                        {
+                            Console.WriteLine("ERROR: Credenciales incorrectas o el ID no pertenece a un administrador");
+                            Console.ReadKey();
+                        }
                         break;
                     case 2:
-                        customerMenu();
+                        Console.Write("Ingrese su ID: ");
+                        int clientID;
+                        if (!int.TryParse(Console.ReadLine(), out clientID))
+                        {
+                            Console.WriteLine("ERROR: Entrada invalida");
+                            Console.ReadKey();
+                            break;
+                        }
+                        Console.Write("Ingrese su Contraseña: ");
+                        string clientPass = Console.ReadLine();
+                        user clientUser = listUsers.getUserByID(clientID);
+                        if (clientUser != null && clientUser.getUserPassword() == clientPass)
+                        {
+                            customerMenu();
+                        }
+                        else
+                        {
+                            Console.WriteLine("ERROR: Credenciales incorrectas");
+                            Console.ReadKey();
+                        }
                         break;
                     case 3:
+                        Console.Write("Ingrese su nombre: ");
+                        string newName = Console.ReadLine();
+                        Console.Write("Ingrese un ID: ");
+                        int newID;
+                        if (!int.TryParse(Console.ReadLine(), out newID))
+                        {
+                            Console.WriteLine("ERROR: Entrada invalida para el ID");
+                            Console.ReadKey();
+                            break;
+                        }
+                        Console.Write("Ingrese una contraseña: ");
+                        string newPassword = Console.ReadLine();
+                        if (listUsers.addUser(newName, newID, newPassword, false))
+                        {
+                            Console.WriteLine("EXITO: Cuenta creada, Inicie sesion como cliente");
+                        }
+                        Console.ReadKey();
+                        break;
+                    case 4:
                         exit = true;
                         break;
                     default:
@@ -52,6 +110,7 @@ public class console
             }
         }
     }
+
     public void adminMenu()
     {
         bool regresar = false;
@@ -474,7 +533,7 @@ public class console
             }
             else
             {
-                Console.WriteLine("ERROR: Entrada invalida.");
+                Console.WriteLine("ERROR: Entrada invalida");
                 Console.ReadKey();
             }
         }
