@@ -39,24 +39,31 @@
         Console.Write("Opcion: ");
         if (int.TryParse(Console.ReadLine(), out int paymentMethod))
         {
+            string productIDs = cart.getProductsIDsString();
             switch (paymentMethod)
             {
                 case 1:
                     pay.setCredit(true);
                     bill newBill = new bill(userActualID, userActualName, date, "Credito", cart);
                     cart.cartSold();
+                    report.addReport($"{userActualID} | {date} | Credito | {cart.getStockCart()} | {productIDs}");
+                    newBill.printBill();
                     Console.ReadKey();
                     return true;
                 case 2:
                     pay.setDebit(true);
                     newBill = new bill(userActualID, userActualName, date, "Debito", cart);
                     cart.cartSold();
+                    report.addReport($"{userActualID} | {date} | Debito | {cart.getStockCart()} | {productIDs}");
+                    newBill.printBill();
                     Console.ReadKey();
                     return true;
                 case 3:
                     pay.setCash(true);
                     newBill = new bill(userActualID, userActualName, date, "Efectivo", cart);
                     cart.cartSold();
+                    reportes.AddReporte($"{userActualID} | {date} | Efectivo | {cart.getStockCart()} | {productIDs}");
+                    newBill.printBill();
                     Console.ReadKey();
                     return true;
                 default:

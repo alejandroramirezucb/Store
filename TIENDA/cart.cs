@@ -29,6 +29,15 @@ public class cart
     {
         this.stockCart = stockCart;
     }
+    public string getProductsIDsString()
+    {
+        string result = "";
+        foreach (int id in productsInCart)
+        {
+            result += id + " ";
+        }
+        return result;
+    }
     public void forgottenCart()
     {
         product auxProduct = listInventory.getFirstProduct();

@@ -6,15 +6,17 @@ public class bill
     private string userActualName;
     private DateTime date;
     private string paymentMethod;
+    private string productIDs;
     private cart cart;
 
-    public bill(int userActualID, string userActualName, DateTime date,string paymentMethod, cart cart)
+    public bill(int userActualID, string userActualName, DateTime date, string paymentMethod, cart cart)
     {
         this.userActualID = userActualID;
         this.userActualName = userActualName;
         this.date = date;
         this.paymentMethod = paymentMethod;
         this.cart = cart;
+        this.productIDs = cart.getProductsIDsString();
     }
     public void printBill()
     {
@@ -28,6 +30,8 @@ public class bill
                                       paymentMethod,
                                       date,
                                       cart.getStockCart());
-        cart.printProductsbyCart();
+        Console.WriteLine("------------------------------------------------------------------------------------------------------");
+        Console.WriteLine("IDs de productos comprados: " + productIDs);
+        Console.WriteLine("------------------------------------------------------------------------------------------------------");
     }
 }

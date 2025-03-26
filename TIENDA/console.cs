@@ -6,6 +6,7 @@ public class console
     private int option;
     private int userActualID;
     private string userActualName;
+    private report listReports;
     private users listUsers;
     private inventory listInventory;
     private cart cart;
@@ -16,6 +17,7 @@ public class console
         listUsers.addUser("Alejandro", 1, "1234", true);
         this.listInventory = new inventory();
         this.cart = new cart(listInventory);
+        this.listReports = new report();
     }
     public void login()
     {
@@ -150,8 +152,7 @@ public class console
                         viewUsers();
                         break;
                     case 5:
-                        Console.WriteLine("ERROR: Funcionalidad de Reportes no implementada");
-                        Console.ReadKey();
+                        listReports.printReports();
                         break;
                     case 6:
                         back = true;
@@ -163,7 +164,7 @@ public class console
                 }
             }
             else
-            {
+            { 
                 Console.WriteLine("ERROR: Entrada invalida");
                 Console.ReadKey();
             }
