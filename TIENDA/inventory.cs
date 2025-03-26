@@ -240,10 +240,10 @@ public class inventory
             return false;
         }
     }
-    public bool addCategory (string categoryName)
+    public bool addCategory(string categoryName)
     {
         if (ifCategoryExits(categoryName) == true)
-        {         
+        {
             Console.WriteLine("ERROR: La Categoria ya existe");
             return false;
         }
@@ -253,7 +253,7 @@ public class inventory
             return true;
         }
     }
-    public bool delCategory (string categoryName)
+    public bool delCategory(string categoryName)
     {
         if (ifCategoryExits(categoryName) == true)
         {
@@ -290,12 +290,12 @@ public class inventory
         Console.WriteLine(" {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-20} | {5, -10} ",
                           "IDs", "Nombre", "Marca", "Categoria", "Codigo de Barras", "Stock");
         Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
-        for (int i = 0; i<listProducts.Count; ++i)
+        for (int i = 0; i < listProducts.Count; ++i)
         {
             product auxProduct = firstProduct;
             while (auxProduct != null)
             {
-                if (listProducts[i] == auxProduct.getProductName() && auxProduct.getSold() == false && auxProduct.getInCart() == false)
+                if (listProducts[i] == auxProduct.getProductName() && auxProduct.getSold() == false && auxProduct.getInCart() == false && auxProduct.getInCart() == false)
                 {
                     Console.WriteLine(" {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-20} | {5, -10} ",
                                       getProductIDs(auxProduct.getProductName()),
@@ -318,7 +318,7 @@ public class inventory
         Console.WriteLine("--------------------------------------------------");
         for (int i = 0; i < listCategories.Count; ++i)
         {
-            Console.WriteLine(" {0,-10} | {1,-30} ", 
+            Console.WriteLine(" {0,-10} | {1,-30} ",
                               listCategories[i], getStockCategory(listCategories[i]));
         }
         Console.WriteLine("--------------------------------------------------");

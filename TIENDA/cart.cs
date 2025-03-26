@@ -21,7 +21,8 @@ public class cart
     {
         this.userID = userID;
     }
-    public int getStockCart() {
+    public int getStockCart()
+    {
         return stockCart;
     }
     public void setStockCart(int stockCart)
@@ -43,7 +44,7 @@ public class cart
         }
         else
         {
-            for(int i = 0; i < productsInCart.Count; ++i)
+            for (int i = 0; i < productsInCart.Count; ++i)
             {
                 auxProduct = listInventory.getFirstProduct();
                 while (auxProduct != null)
