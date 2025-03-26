@@ -6,11 +6,13 @@ public class console
     private int option;
     private users listUsers;
     private inventory listInventory;
+    private cart cart;
 
     public console()
     {
         this.listUsers = new users();
         this.listInventory = new inventory();
+        this.cart = new cart(listInventory);
     }
 
     public void login()
@@ -107,7 +109,7 @@ public class console
         {
             Console.Clear();
             Console.WriteLine("--------------------------------------------------------Menu-------------------------------------------------------\n");
-            Console.WriteLine("1. Agregar Producto a Carrito " +
+            Console.WriteLine("1. Agregar Producto al Carrito " +
                               "| 2. Eliminar Producto del Carrito " +
                               "| 3. Comprar " +
                               "| 4. Ver Carrito " +
@@ -119,16 +121,49 @@ public class console
                 switch (option)
                 {
                     case 1:
-                        
+                        Console.Write("Ingrese el ID del producto a agregar al carrito: ");
+                        if (int.TryParse(Console.ReadLine(), out int productID))
+                        {
+                            if (cart.addProductInCart(productID))
+                            {
+                                Console.WriteLine("EXITO: Producto agregado al carrito");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("ERROR: Entrada invalida");
+                        }
+                        Console.ReadKey();
                         break;
                     case 2:
-                        
+                        Console.Write("Ingrese el ID del producto a eliminar del carrito: ");
+                        if (int.TryParse(Console.ReadLine(), out int productIDDel))
+                        {
+                            if (cart.delProductInCart(productIDDel))
+                            {
+                                Console.WriteLine("EXITO: Producto eliminado del carrito");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("ERROR: Entrada invalida");
+                        }
+                        Console.ReadKey();
                         break;
                     case 3:
-                        
+                        if (cart.getStockCart() == 0)
+                        {
+                            Console.WriteLine("ERROR: El carrito está vacío");
+                        }
+                        else
+                        { 
+                            Console.WriteLine("EXITO: Compra realizada");
+                        }
+                        Console.ReadKey();
                         break;
                     case 4:
-                        
+                        cart.printProductsbyCart();
+                        Console.ReadKey();
                         break;
                     case 5:
                         viewInventory();

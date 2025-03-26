@@ -15,6 +15,14 @@ public class inventory
         this.listProducts = new List<string>();
         listCategories.Add("Sin categoria");
     }
+    public List<string> getListProducts()
+    {
+        return listProducts;
+    }
+    public product getFirstProduct()
+    {
+        return this.firstProduct;
+    }
     public int getStock()
     {
         return stock;
@@ -79,13 +87,9 @@ public class inventory
             product auxProduct = firstProduct;
             while (auxProduct != null)
             {
-                if (auxProduct.getProductName() == productName && auxProduct.getNextProduct() == null)
+                if (auxProduct.getProductName() == productName)
                 {
-                    productIDs = productIDs + $"{auxProduct.getProductID()}";
-                }
-                else if (auxProduct.getProductName() == productName && auxProduct.getNextProduct() != null)
-                {
-                    productIDs = productIDs + $"{auxProduct.getProductID()}, ";
+                    productIDs = productIDs + $"{auxProduct.getProductID()} ";
                 }
                 auxProduct = auxProduct.getNextProduct();
             }

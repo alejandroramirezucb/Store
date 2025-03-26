@@ -5,7 +5,6 @@
     private String userPassword;
     private bool userAdmin;
     private user nextUser;
-
     public user (String userName, int userID, String userPassword, bool userAdmin)
     {
         this.userName = userName;
