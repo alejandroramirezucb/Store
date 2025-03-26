@@ -87,7 +87,7 @@ public class inventory
             product auxProduct = firstProduct;
             while (auxProduct != null)
             {
-                if (auxProduct.getProductName() == productName)
+                if (auxProduct.getProductName() == productName && auxProduct.getInCart() == false && auxProduct.getSold() == false)
                 {
                     productIDs = productIDs + $"{auxProduct.getProductID()} ";
                 }

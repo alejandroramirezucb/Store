@@ -32,7 +32,7 @@ public class cart
     public void forgottenCart()
     {
         product auxProduct = listInventory.getFirstProduct();
-        if (auxProduct != null)
+        if (auxProduct == null)
         {
             Console.WriteLine("ERROR: No hay productos disponibles en el inventario");
             return;
@@ -63,7 +63,7 @@ public class cart
     public void cartSold()
     {
         product auxProduct = listInventory.getFirstProduct();
-        if (auxProduct != null)
+        if (auxProduct == null)
         {
             Console.WriteLine("ERROR: No hay productos disponibles en el inventario");
             return;
@@ -84,7 +84,7 @@ public class cart
                     {
                         auxProduct.setInCart(false);
                         auxProduct.setSold(true);
-                        listInventory.setStock(listInventory.getStock() - getStockCart());
+                        listInventory.setStock(listInventory.getStock() - 1);
                         productsInCart.Remove(productsInCart[i]);
                     }
                     auxProduct = auxProduct.getNextProduct();
