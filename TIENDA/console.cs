@@ -31,8 +31,10 @@ public class console
                     case 1:
                         adminMenu();
                         break;
-                    case 3:
+                    case 2:
                         customerMenu();
+                        break;
+                    case 3:
                         exit = true;
                         break;
                     default:
@@ -100,17 +102,17 @@ public class console
     }
     public void customerMenu()
     {
-        bool regresar = false;
-        while (!regresar)
+        bool back = false;
+        while (!back)
         {
             Console.Clear();
             Console.WriteLine("--------------------------------------------------------Menu-------------------------------------------------------\n");
             Console.WriteLine("1. Agregar Producto a Carrito " +
                               "| 2. Eliminar Producto del Carrito " +
-                              "| 3. Ver Carrito " +
-                              "| 4. Ver Productos" +
-                              "| 5. Comprar " +
-                              "| 6. Regresar\n");
+                              "| 3. Comprar " +
+                              "| 4. Ver Carrito " +
+                              "| 5. Ver Inventario\n" +
+                              "                                                    6. Regresar\n");
             Console.Write("Opcion: ");
             if (int.TryParse(Console.ReadLine(), out option))
             {
@@ -129,11 +131,10 @@ public class console
                         
                         break;
                     case 5:
-                        Console.WriteLine("Funcionalidad de Reportes no implementada.");
-                        Console.ReadKey();
+                        viewInventory();
                         break;
                     case 6:
-                        regresar = true;
+                        back = true;
                         break;
                     default:
                         Console.WriteLine("ERROR: Opcion no valida");

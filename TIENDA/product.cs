@@ -6,6 +6,7 @@
     private int productBarcode;
     private int productID;
     private bool sold;
+    private bool inCart;
     private product nextProduct; 
 
     public product(string productName, string productBrand, int productBarcode, int productID)
@@ -16,6 +17,7 @@
         this.productBarcode = productBarcode;
         this.productID = productID;
         this.sold = false;
+        this.inCart = false;
         this.nextProduct = null;
     }
     public string getProductName()
@@ -65,6 +67,14 @@
     public void setSold(bool sold)
     {
         this.sold = sold;
+    }
+    public bool getInCart()
+    {
+        return inCart;
+    }
+    public void setInCart(bool inCart)
+    {
+        this.inCart = inCart;
     }
     public product getNextProduct()
     {

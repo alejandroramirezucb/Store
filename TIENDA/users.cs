@@ -121,13 +121,13 @@ public class users
     {
         user auxUser = userFirst;
         Console.WriteLine("-----------------------------------------------");
-        Console.WriteLine("| {0,-10} | {1,-30} |", "ID", "Nombre");
+        Console.WriteLine(" {0,-10} | {1,-30} ", "ID", "Nombre");
         Console.WriteLine("-----------------------------------------------");
         while (auxUser != null)
         {
             if (auxUser.getUserAdmin() == true)
             {
-                Console.WriteLine("| {0,-10} | {1,-30} |", auxUser.getUserID(), auxUser.getUserName());
+                Console.WriteLine(" {0,-10} | {1,-30} ", auxUser.getUserID(), auxUser.getUserName());
             }
             auxUser = auxUser.getNextUser();
         }
@@ -137,13 +137,13 @@ public class users
     {
         user auxUser = userFirst;
         Console.WriteLine("-----------------------------------------------");
-        Console.WriteLine("| {0,-10} | {1,-30} |", "ID", "Nombre");
+        Console.WriteLine(" {0,-10} | {1,-30} ", "ID", "Nombre");
         Console.WriteLine("-----------------------------------------------");
         while (auxUser != null)
         {
             if (auxUser.getUserAdmin() == false)
             {
-                Console.WriteLine("| {0,-10} | {1,-30} |", auxUser.getUserID(), auxUser.getUserName());
+                Console.WriteLine(" {0,-10} | {1,-30} ", auxUser.getUserID(), auxUser.getUserName());
             }
             auxUser = auxUser.getNextUser();
         }
