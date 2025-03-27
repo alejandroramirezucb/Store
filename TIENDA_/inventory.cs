@@ -311,6 +311,37 @@ public class inventory
             Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
         }
     }
+    public void searchProductByName(string productName)
+    {
+        Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
+        Console.WriteLine(" {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-20} | {5, -10} ",
+                          "ID", "Nombre", "Marca", "Categoria", "Codigo de Barras", "Stock");
+        Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
+        bool coincidences = false;
+        product auxProduct = firstProduct;
+        while (auxProduct != null)
+        {
+            if (auxProduct.getProductName().StartsWith(productName, StringComparison.OrdinalIgnoreCase)  && auxProduct.getSold() == false && auxProduct.getInCart() == false)
+            {
+                Console.WriteLine(" {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-20} | {5, -10} ",
+                                   auxProduct.getProductID(),
+                                   auxProduct.getProductName(),
+                                   auxProduct.getProductBrand(),
+                                   auxProduct.getProductCategory(),
+                                   auxProduct.getProductBarcode(),
+                                   getStockProduct(auxProduct.getProductName()));
+                coincidences = true;
+            }
+            auxProduct = auxProduct.getNextProduct();
+        }
+        if (coincidences == false)
+        {
+            Console.WriteLine("ERROR: No se encontraron productos que coincidan con el nombre ingresado");
+        }
+
+        Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
+    }
+
     public void printCategories()
     {
         Console.WriteLine("--------------------------------------------------");

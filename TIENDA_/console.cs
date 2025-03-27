@@ -365,14 +365,14 @@ public class console
     }
     public void viewInventory()
     {
-        bool regresar = false;
-        while (!regresar)
+        bool back = false;
+        while (!back)
         {
             Console.Clear();
-            Console.WriteLine("--------------------------------------------Ver Inventario-------------------------------------------\n");
+            Console.WriteLine("-----------------------------------------------------Ver Inventario-----------------------------------------------------\n");
             Console.WriteLine("1. Tabla de Productos | 2. Tabla de Categorias " +
                               "| 3. Tabla de Productos por Categoria " +
-                              "| 4. Regresar\n");
+                              "| 4. Buscar productos | 5. Regresar\n");
             Console.Write("Opcion: ");
             if (int.TryParse(Console.ReadLine(), out option))
             {
@@ -393,7 +393,14 @@ public class console
                         Console.ReadKey();
                         break;
                     case 4:
-                        regresar = true;
+                        //IMPLEMENTAR BUSCADOR
+                        Console.Write("Ingrese el nombre del Producto: ");
+                        string seachProduct = Console.ReadLine();
+                        listInventory.searchProductByName(seachProduct);
+                        Console.ReadKey();
+                        break;
+                    case 5:
+                        back = true;
                         break;
                     default:
                         Console.WriteLine("ERROR: Opcion no valida");
@@ -513,8 +520,8 @@ public class console
     }
     public void viewUsers()
     {
-        bool regresar = false;
-        while (!regresar)
+        bool back = false;
+        while (!back)
         {
             Console.Clear();
             Console.WriteLine("--------------------------Ver Usuarios-------------------------\n");
@@ -534,7 +541,7 @@ public class console
                         Console.ReadKey();
                         break;
                     case 3:
-                        regresar = true;
+                        back = true;
                         break;
                     default:
                         Console.WriteLine("ERROR: Opcion no valida");
