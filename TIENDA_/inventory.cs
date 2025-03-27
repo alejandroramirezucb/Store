@@ -321,7 +321,7 @@ public class inventory
         product auxProduct = firstProduct;
         while (auxProduct != null)
         {
-            if (auxProduct.getProductName().StartsWith(productName, StringComparison.OrdinalIgnoreCase)  && auxProduct.getSold() == false && auxProduct.getInCart() == false)
+            if ((auxProduct.getProductName().StartsWith(productName, StringComparison.OrdinalIgnoreCase) || auxProduct.getProductName().Contains(productName, StringComparison.OrdinalIgnoreCase)) &&  auxProduct.getSold() == false && auxProduct.getInCart() == false)
             {
                 Console.WriteLine(" {0,-10} | {1,-20} | {2,-15} | {3,-15} | {4,-20} | {5, -10} ",
                                    auxProduct.getProductID(),
